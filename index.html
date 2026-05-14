@@ -77,6 +77,8 @@
     }
 
     main {
+      position: relative;
+      z-index: 2;
       width: min(520px, 100%);
       animation: appear .9s ease both;
     }
@@ -323,7 +325,7 @@
       user-select: none;
       pointer-events: none;
       animation: snowfall linear infinite;
-      z-index: -1;
+      z-index: 1;
     }
 
     @keyframes snowfall {
@@ -396,7 +398,7 @@
       background: radial-gradient(circle, rgba(255, 255, 255, .12), transparent 62%);
       transform: translate(-50%, -50%);
       pointer-events: none;
-      z-index: -1;
+      z-index: 1;
       opacity: .65;
       transition: opacity .25s ease;
     }
@@ -553,14 +555,14 @@
       try {
         const counter = new Counter({ workspace: '7ghostmarck' });
         const result = await counter.up('linkhub-visits');
-        views.textContent = formatViews(result.value);
+        const total = result.value ?? result.data?.up_count ?? result.data?.count ?? 0;
+        views.textContent = formatViews(total);
       } catch (error) {
         const fallbackViews = Number(localStorage.getItem('ghostLocalViews') || 0) + 1;
         localStorage.setItem('ghostLocalViews', fallbackViews);
         views.textContent = formatViews(fallbackViews);
         console.warn('CounterAPI no cargó, usando contador local:', error);
-      } console.warn('CounterAPI no cargó, usando contador local:', error);
-    }
+      }
     }
 
     loadRealCounter();
