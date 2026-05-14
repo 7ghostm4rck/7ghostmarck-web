@@ -554,7 +554,7 @@
     async function loadRealCounter() {
       try {
         const counter = new Counter({ workspace: '7ghostmarck' });
-        const result = await counter.up('linkhub-visits');
+        const result = await counter.up('v2-counter');
         const total = result.value ?? result.data?.up_count ?? result.data?.count ?? 0;
         views.textContent = formatViews(total);
       } catch (error) {
